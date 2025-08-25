@@ -8,5 +8,20 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EnderecoMapper {
 
-    Endereco toEndereco(DadosEnderecoDTO dto);
+    default Endereco toEndereco(DadosEnderecoDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        return new Endereco(
+                dto.logradouro(),
+                dto.bairro(),
+                dto.cep(),
+                dto.numero(),
+                dto.complemento(),
+                dto.cidade(),
+                dto.uf()
+        );
+    }
 }
+
